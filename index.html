@@ -259,7 +259,7 @@
                 <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-2 section-title">Contact Us</h2>
                 <p class="text-sm text-gray-500">Fill out the form below to get in touch with an agent.</p>
             </div>
-            <form id="contact-form" action="https://formspree.io/f/xandyaer" method="POST" class="space-y-6">
+            <form id="contact-form" action="NeedsCalc.github.io" method="POST" class="space-y-6">
                 <div>
                     <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
                     <input type="text" id="name" name="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
@@ -466,31 +466,28 @@
             setTimeout(() => {
                 resultContainer.classList.remove('opacity-0');
             }, 10);
-
-            return finalNetNeeds; // Return the calculated value
+            
+            // Automatically populate the quote form
+            populateQuoteForm(finalNetNeeds);
         }
 
         /**
          * Populates the quote request form with the calculated net need.
          */
-        function populateQuoteForm() {
-            const netNeed = calculateNeeds();
-            if (netNeed !== null) {
-                const formattedNeed = new Intl.NumberFormat('en-US', {
-                    style: 'currency',
-                    currency: 'USD',
-                    minimumFractionDigits: 0
-                }).format(netNeed);
-                contactFormMessage.value = `Hello, I'm interested in getting a quote for a life insurance policy. My estimated need is approximately ${formattedNeed}.`;
-                window.location.hash = '#contact'; // Scroll to the contact form
-            } else {
-                showMessage("Please calculate your needs first before requesting a quote.");
-            }
+        function populateQuoteForm(netNeed) {
+            const formattedNeed = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 0
+            }).format(netNeed);
+            contactFormMessage.value = `Hello, I'm interested in getting a quote for a life insurance policy. My estimated need is approximately ${formattedNeed}.`;
+            window.location.hash = '#contact'; // Scroll to the contact form
         }
 
         // Add event listeners to the buttons
         calculateBtn.addEventListener('click', calculateNeeds);
-        getQuoteBtn.addEventListener('click', populateQuoteForm);
     </script>
 </body>
 </html>
+```
+
